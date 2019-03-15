@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>
+        书籍内容
+    </title>
+    <link href="/static/bower_components/bootstrap/dist/css//bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <script src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/static/bower_components/jquery/dist/jquery.js" ></script>
+    <style type="text/css">
+        html,body,container{
+            height: 100%;
+        }
+        pre {
+            margin: 0 auto;
+        }
+        span{
+            white-space: pre-wrap;
+        }
+        .header{
+            padding-top: 20px;
+        }
+        .main{
+            width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-style: solid;
+            border-color: aliceblue;
+            border-width: 2px;
+        }
+        .pagination{
+            text-align: center;
+        }
+    </style>
+</head>
+<body background="/static/img/background.jpg" class="m-auto">
+<div class="container" >
+
+    <div class="header text-center ">
+        <a href="/index/" style="float: left;">
+            <i class="fa fa-home fa-2x" aria-hidden="true">Home</i>
+        </a>
+        <h3>{{ book_name }}</h3>
+    </div>
+
+    <div class="col-md-12 col-sm-offset-1 main">
+        {% for content in book_content %}
+        <span>{{ content }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="pagination">
+        <div class="col-md-4  ">
+            {% if book_content.has_previous  %}
+            <i class="fa fa-arrow-left" aria-hidden="true">
+                <a href="?book_name={{ book_name }}&page={{ book_content.previous_page_number }}">
+                    上一页
+                </a>
+            </i>
+
+            {% endif %}
+        </div>
+
+        <div class="col-md-4  ">
+            <h5>
+                第{{ book_content.number }}页/共{{ book_content.paginator.num_pages }}页
+            </h5>
+
+        </div>
+        {% if book_content.has_next %}
+        <div class="col-md-4  ">
+            <a href="?book_name={{book_name}}&page={{ book_content.next_page_number }}">
+                下一页
+            </a>
+            <i class="fa fa-arrow-right" aria-hidden="true">
+            </i>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+</body>
+</html>
